@@ -26,3 +26,36 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.main-container {
+  text-align: center;
+}
+
+.footer {
+  background-color: #FFA726;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.statistics {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.g-recaptcha {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.g-recaptcha > div {
+  margin: 0 auto;
+}
