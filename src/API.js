@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = "http://144.217.89.18:8080/";
+const baseURL = "https://api.cryptfolio.ovh/";
 // const baseURL = "http://localhost:8080/";
 
 class API {
@@ -27,12 +27,13 @@ class API {
         });
     })
   }
-  static signup(email, password, firstName, lastName, gRecaptchaResponse) {
+  static signup(email, password, firstName, lastName, currency, gRecaptchaResponse) {
     const payload = {
       "username": email,
       "password": password,
       "firstName": firstName,
       "lastName": lastName,
+      "favouriteCurrencyId": currency,
       "gRecaptchaResponse": gRecaptchaResponse,
     }
     return new Promise((resolve, reject) => {

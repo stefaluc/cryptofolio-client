@@ -10,16 +10,16 @@ import API from		'./API'
 
 class Signup extends Component {
   state = {
-    currency: 0,
     email: '',
     password: '',
     passwordCheck: '',
     firstName: '',
     lastName: '',
+    currency: 0,
     gRecaptchaResponse: '',
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({currency: value});
   verifyCallback = response => this.setState({recaptchaResponse: response})
 
   render() {
@@ -57,11 +57,11 @@ class Signup extends Component {
              onChange = {(event,newValue) => this.setState({passwordCheck:newValue})}
              />
            <br/>
-	   <SelectField
+	         <SelectField
              floatingLabelText="Favourite currency"
-	     value={this.state.currency}
+	           value={this.state.currency}
              onChange={this.handleChange}
-	     style={selectStyle}
+	           style={selectStyle}
            >
              <MenuItem value={1} primaryText="USD" />
              <MenuItem value={2} primaryText="Euro" />
@@ -82,6 +82,7 @@ class Signup extends Component {
       this.state.password,
       this.state.firstName,
       this.state.lastName,
+      this.state.currency,
       this.state.recaptchaResponse
     )
       .then((response) => {})
