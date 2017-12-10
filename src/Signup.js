@@ -15,10 +15,12 @@ class Signup extends Component {
     password: '',
     passwordCheck: '',
     firstName: '',
-    lastName: ''
+    lastName: '',
+    gRecaptchaResponse: '',
   };
 
   handleChange = (event, index, value) => this.setState({value});
+  verifyCallback = response => this.setState({recaptchaResponse: response})
 
   render() {
     return (
@@ -66,7 +68,8 @@ class Signup extends Component {
              <MenuItem value={3} primaryText="Baht" />
            </SelectField>
 	    <Recaptcha
-	    sitekey="6LfUazwUAAAAAFiCbWGjDvTkJTVsQwQR_cJZskF_"
+	      sitekey="6LfUazwUAAAAAFiCbWGjDvTkJTVsQwQR_cJZskF_"
+        verifyCallback={this.verifyCallback}
 	    />
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.register(event) }/>
         </div>
@@ -74,11 +77,16 @@ class Signup extends Component {
   }
 
   register() {
-    API.signup(this.state.email, this.state.password)
-    .then((response) => {
-    })
-    .catch((error) => {
-      alert(error)
+    API.signup(
+      this.state.email,
+      this.state.password,
+      this.state.firstName,
+      this.state.lastName,
+      this.state.recaptchaResponse
+    )
+      .then((response) => {})
+      .catch((error) => {
+        alert(error)
     })
   }
 }
