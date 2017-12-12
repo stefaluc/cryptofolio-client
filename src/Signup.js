@@ -85,7 +85,9 @@ class Signup extends Component {
       this.state.currency,
       this.state.recaptchaResponse
     )
-      .then((response) => {})
+      .then((response) => {
+        alert('Sign up Successful');
+      })
       .catch((error) => {
         alert(error)
     })

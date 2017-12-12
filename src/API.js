@@ -10,12 +10,13 @@ class API {
       "password": password
     }
     return new Promise((resolve, reject) => {
-      axios.post(baseURL + 'login', payload)
-        .then(function (response) {
-          if (response.data.code === 200){
-            resolve();
+      axios.post(baseURL + 'auth', payload)
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200){
+            resolve(response.data);
           }
-          else if (response.data.code === 204){
+          else if (response.status === 204){
             reject("Username password do not match")
           }
           else {
@@ -38,11 +39,11 @@ class API {
     }
     return new Promise((resolve, reject) => {
       axios.post(baseURL + 'signup', payload)
-        .then(function (response) {
-          if (response.data.code === 200){
+        .then((response) => {
+          if (response.status === 200){
             resolve();
           }
-          else if (response.data.code === 204){
+          else if (response.status === 204){
             reject("Username password do not match")
           }
           else {

@@ -14,6 +14,8 @@ class Auth {
   static setToken(token) {
     this.token = token;
     this.logged = true;
+
+    localStorage.setItem('cryptfolioToken', token);
   }
 }
 
