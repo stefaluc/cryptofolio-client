@@ -49,6 +49,7 @@ class Dashboard extends Component {
 	      <Paper zDepth={2} className="container">
 		<CurrencyList balances={this.state.balances}
 			      transactions={this.state.transactions}
+			      currencies={this.state.currencies}
 		/>
 		<CurrencyActions balances={this.state.balances} />
 	      </Paper>

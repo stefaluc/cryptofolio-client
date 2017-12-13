@@ -10,6 +10,18 @@ import {
 
 import CurrencyDetail from './CurrencyDetail'
 
+function getURLcurrency(currencies, id) {
+  for (var i = 0; i < currencies.length; i++) {
+    if (currencies[i].id === id) {
+      return currencies[i].logoURL;
+    }
+  }
+}
+
+const logoStyle = {
+  height: "40px"
+};
+
 class CurrencyList extends Component {
   // TODO: Show/Hide CurrencyDetail on click
   render() {
@@ -18,35 +30,38 @@ class CurrencyList extends Component {
       var balance = this.props.balances[i];
       balances.push(
 	      <TableRow key={balance.id}>
-	        <TableRowColumn>{balance.currencyID}</TableRowColumn>
+	        <TableRowColumn>
+		    <img src={ getURLcurrency(this.props.currencies, balance.currencyID) } 
+			 style={logoStyle}/>
+		</TableRowColumn>
 	        <TableRowColumn>{balance.quantity}</TableRowColumn>
 	      </TableRow>
       );
       balances.push(
-	      <TableRow key={balance.id + "-child"}>
-		<TableRowColumn colSpan={3}
-		    children={<CurrencyDetail balance={balance}
-					      transactions={this.props.transactions} />
-			    } />
-	      </TableRow>
+	      <CurrencyDetail balance={balance}
+	  	transactions={this.props.transactions} />
       );
     }
-    return (
-	<Table>
-	    <TableHeader
-	      displaySelectAll={false}
-	      adjustForCheckbox={false}
-	    >
-	      <TableRow>
-	        <TableHeaderColumn>Currency ID</TableHeaderColumn>
-	        <TableHeaderColumn>Quantity</TableHeaderColumn>
-	      </TableRow>
-	    </TableHeader>
-	    <TableBody displayRowCheckbox={false}>
-	      {balances}
-	    </TableBody>
-	</Table>
-    )
+    if (balances.length > 0) {
+      return (
+          <Table>
+              <TableHeader
+                displaySelectAll={false}
+                adjustForCheckbox={false}
+              >
+                <TableRow>
+                  <TableHeaderColumn>Currency ID</TableHeaderColumn>
+                  <TableHeaderColumn>Quantity</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody displayRowCheckbox={false}>
+                {balances}
+              </TableBody>
+          </Table>
+      )
+    } else {
+      return null;
+    }
   }
 }
 

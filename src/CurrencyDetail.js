@@ -15,7 +15,7 @@ class CurrencyDetail extends Component {
     tr: []
   };
 
-  render() {
+  componentDidMount() {
     API.getTransactions(this.props.balance.id)
     .then((tr) => {
       if (tr != null) {
@@ -24,6 +24,9 @@ class CurrencyDetail extends Component {
     }).catch((error) => {
       alert(error)
     })
+  }
+
+  render() {
     var transactions = [];
     for (var i = 0; i < this.state.tr.length; i++) {
       var tr = this.state.tr[i];
@@ -36,23 +39,31 @@ class CurrencyDetail extends Component {
       );
     }
 
-    return (
-      <Table>
-          <TableHeader
-	      displaySelectAll={false}
-	      adjustForCheckbox={false}
-	  >
-            <TableRow>
-              <TableHeaderColumn>Quantity</TableHeaderColumn>
-              <TableHeaderColumn>Price</TableHeaderColumn>
-              <TableHeaderColumn>Date</TableHeaderColumn>
-            </TableRow>
-          </TableHeader>
-          <TableBody displayRowCheckbox={false}>
-	    {transactions}
-          </TableBody>
-      </Table>
-    )
+    if (transactions.length > 0) {
+      return (
+    <TableRow key={this.props.balance.id + "-child"}>
+      <TableRowColumn colSpan={3}>
+        <Table>
+            <TableHeader
+                displaySelectAll={false}
+                adjustForCheckbox={false}
+            >
+              <TableRow>
+                <TableHeaderColumn>Quantity</TableHeaderColumn>
+                <TableHeaderColumn>Price</TableHeaderColumn>
+                <TableHeaderColumn>Date</TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {transactions}
+            </TableBody>
+        </Table>
+      </TableRowColumn>
+    </TableRow>
+      )
+    } else {
+      return null;
+    }
   }
 }
 
