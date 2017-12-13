@@ -1,21 +1,26 @@
 class Auth {
-  static logged = false;
   static token = null;
+  static storageKey = 'cryptfolioToken';
 
   static isAuth() {
-    return (this.token !== null)
-    //return true
+    return (this.getToken() !== null)
   }
 
   static getToken() {
+    if (!this.token) {
+      this.token = localStorage.getItem(this.storageKey);
+    }
     return this.token;
   }
 
   static setToken(token) {
     this.token = token;
-    this.logged = true;
+    localStorage.setItem(this.storageKey, token);
+  }
 
-    localStorage.setItem('cryptfolioToken', token);
+  static deleteToken() {
+    this.token = null;
+    localStorage.removeItem(this.storageKey);
   }
 }
 

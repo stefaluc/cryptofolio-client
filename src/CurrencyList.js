@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Paper from 'material-ui/Paper';
 import {
   Table,
   TableBody,
@@ -12,49 +11,41 @@ import {
 import CurrencyDetail from './CurrencyDetail'
 
 class CurrencyList extends Component {
+  // TODO: Show/Hide CurrencyDetail on click
   render() {
+    var balances = [];
+    for (var i = 0; i < this.props.balances.length; i++) {
+      var balance = this.props.balances[i];
+      balances.push(
+	      <TableRow key={balance.currencyID}>
+	        <TableRowColumn>{balance.currencyID}</TableRowColumn>
+	        <TableRowColumn>{balance.quantity}</TableRowColumn>
+	      </TableRow>
+      );
+      balances.push(
+	      <TableRow key={balance.currencyID + "-child"}>
+		<TableRowColumn colSpan={3}
+		    children={<CurrencyDetail balance={balance}
+					      transactions={this.props.transactions} />
+			    } />
+	      </TableRow>
+      );
+    }
     return (
-	      <Paper zDepth={2} className="container">
-<Table>
-    <TableHeader>
-      <TableRow>
-        <TableHeaderColumn>ID</TableHeaderColumn>
-        <TableHeaderColumn>Name</TableHeaderColumn>
-        <TableHeaderColumn>Status</TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      <TableRow>
-        <TableRowColumn>1</TableRowColumn>
-        <TableRowColumn>John Smith</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-      <TableRowColumn colSpan={3} children={<CurrencyDetail />} />
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>2</TableRowColumn>
-        <TableRowColumn>Randal White</TableRowColumn>
-        <TableRowColumn>Unemployed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>3</TableRowColumn>
-        <TableRowColumn>Stephanie Sanders</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>4</TableRowColumn>
-        <TableRowColumn>Steve Brown</TableRowColumn>
-        <TableRowColumn>Employed</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>5</TableRowColumn>
-        <TableRowColumn>Christopher Nolan</TableRowColumn>
-        <TableRowColumn>Unemployed</TableRowColumn>
-      </TableRow>
-    </TableBody>
-</Table>
-	    </Paper>
+	<Table>
+	    <TableHeader
+	      displaySelectAll={false}
+	      adjustForCheckbox={false}
+	    >
+	      <TableRow>
+	        <TableHeaderColumn>Currency ID</TableHeaderColumn>
+	        <TableHeaderColumn>Quantity</TableHeaderColumn>
+	      </TableRow>
+	    </TableHeader>
+	    <TableBody displayRowCheckbox={false}>
+	      {balances}
+	    </TableBody>
+	</Table>
     )
   }
 }

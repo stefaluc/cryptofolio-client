@@ -59,3 +59,7 @@
 .g-recaptcha > div {
   margin: 0 auto;
 }
+
+.buttons-bottom {
+  text-align: right;
+}

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Auth from './Auth'
 
 const baseURL = "https://api.cryptfolio.ovh/";
 // const baseURL = "http://localhost:8080/";
@@ -6,7 +7,7 @@ const baseURL = "https://api.cryptfolio.ovh/";
 class API {
   static login(email, password) {
     const payload = {
-      "username": email,
+      username: email,
       password,
     }
 
@@ -32,7 +33,7 @@ class API {
 
   static signup(email, password, firstName, lastName, favouriteCurrencyID, gRecaptchaResponse) {
     const payload = {
-      "username": email,
+      username: email,
       password,
       firstName,
       lastName,
@@ -60,10 +61,8 @@ class API {
   }
 
   static getBalances() {
-    const token = localStorage.getItem('cryptfolioToken');
-
     return new Promise((resolve, reject) => {
-      axios.get(baseURL + 'auth/balances?token=' + token)
+      axios.get(baseURL + 'auth/balances?token=' + Auth.getToken())
         .then((response) => {
           resolve(response.data);
         })
@@ -73,11 +72,9 @@ class API {
     });
   }
 
-  static getTransactions() {
-    const token = localStorage.getItem('cryptfolioToken');
-
+  static getTransactions(balanceID) {
     return new Promise((resolve, reject) => {
-      axios.get(baseURL + 'auth/transactions?token=' + token)
+      axios.get(baseURL + 'auth/transactions?token=' + Auth.getToken() + '&balanceID=' + balanceID)
         .then((response) => {
           resolve(response.data);
         })
@@ -88,10 +85,8 @@ class API {
   }
 
   static getCurrencies() {
-    const token = localStorage.getItem('cryptfolioToken');
-
     return new Promise((resolve, reject) => {
-      axios.get(baseURL + 'auth/currencies?token=' + token)
+      axios.get(baseURL + 'auth/currencies?token=' + Auth.getToken())
         .then((response) => {
           resolve(response.data);
         })
@@ -106,10 +101,8 @@ class API {
       cryptocurrencyID,
       quantity,
     }
-    const token = localStorage.getItem('cryptfolioToken');
-
     return new Promise((resolve, reject) => {
-      axios.post(baseURL + 'auth/balance?token=' + token, payload)
+      axios.post(baseURL + 'auth/balance?token=' + Auth.getToken(), payload)
         .then((response) => {
           resolve(response.data);
         })
@@ -125,10 +118,9 @@ class API {
       price,
       date,
     }
-    const token = localStorage.getItem('cryptfolioToken');
-
+    console.log(JSON.stringify(payload));
     return new Promise((resolve, reject) => {
-      axios.post(baseURL + 'auth/balance/' + balanceID + '?token=' + token, payload)
+      axios.post(baseURL + 'auth/balance/' + balanceID + '?token=' + Auth.getToken(), JSON.stringify(payload))
         .then((response) => {
           resolve(response.data);
         })

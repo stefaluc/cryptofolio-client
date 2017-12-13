@@ -8,30 +8,50 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
+import API from			'./API';
+
 class CurrencyDetail extends Component {
+  state = {
+    tr: []
+  };
+
   render() {
+    API.getTransactions(this.props.balance.id)
+    .then((tr) => {
+      if (tr != null) {
+	this.setState({ tr: tr });
+      }
+    }).catch((error) => {
+      alert(error)
+    })
+    var transactions = [];
+    for (var i = 0; i < this.state.tr.length; i++) {
+      var tr = this.state.tr[i];
+      transactions.push(
+              <TableRow>
+                <TableRowColumn>{tr.quantity}</TableRowColumn>
+                <TableRowColumn>{tr.price}</TableRowColumn>
+                <TableRowColumn>{tr.date}</TableRowColumn>
+              </TableRow>
+      );
+    }
+
     return (
-<Table>
-    <TableHeader>
-      <TableRow>
-        <TableHeaderColumn>Foo</TableHeaderColumn>
-        <TableHeaderColumn>Bar</TableHeaderColumn>
-        <TableHeaderColumn>Baz</TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      <TableRow>
-        <TableRowColumn>A</TableRowColumn>
-        <TableRowColumn>B</TableRowColumn>
-        <TableRowColumn>C</TableRowColumn>
-      </TableRow>
-      <TableRow>
-        <TableRowColumn>D</TableRowColumn>
-        <TableRowColumn>E</TableRowColumn>
-        <TableRowColumn>F</TableRowColumn>
-      </TableRow>
-    </TableBody>
-</Table>
+      <Table>
+          <TableHeader
+	      displaySelectAll={false}
+	      adjustForCheckbox={false}
+	  >
+            <TableRow>
+              <TableHeaderColumn>Quantity</TableHeaderColumn>
+              <TableHeaderColumn>Price</TableHeaderColumn>
+              <TableHeaderColumn>Date</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody displayRowCheckbox={false}>
+	    {transactions}
+          </TableBody>
+      </Table>
     )
   }
 }

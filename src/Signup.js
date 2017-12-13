@@ -16,10 +16,10 @@ class Signup extends Component {
     firstName: '',
     lastName: '',
     currency: 0,
-    gRecaptchaResponse: '',
+    recaptchaResponse: '',
   };
 
-  handleChange = (event, index, value) => this.setState({currency: value});
+  handleChange = (event, index, value) => this.setState({currency: value})
   verifyCallback = response => this.setState({recaptchaResponse: response})
 
   render() {
@@ -69,7 +69,7 @@ class Signup extends Component {
            </SelectField>
 	    <Recaptcha
 	      sitekey="6LfUazwUAAAAAFiCbWGjDvTkJTVsQwQR_cJZskF_"
-        verifyCallback={this.verifyCallback}
+	      verifyCallback={this.verifyCallback}
 	    />
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.register(event) }/>
         </div>

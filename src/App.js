@@ -9,6 +9,7 @@ import {
 
 import Auth from	'./Auth'
 import Login from	'./Login'
+import Logout from	'./Logout'
 import Signup from	'./Signup'
 import Dashboard from	'./Dashboard'
 import Header from	'./Header'
@@ -34,17 +35,18 @@ class App extends Component {
     return (
 	    <div>
 	       <MuiThemeProvider>
-	    <div>
-		  <Header/>
+		<div>
 		  <Router>
 		    <div>
+		      <Header/>
 		      <Route exact path="/login" component={Login}/>
+		      <Route exact path="/logout" component={Logout}/>
 		      <Route exact path="/signup" component={Signup}/>
 		      <PrivateRoute exact path="/" component={Dashboard}/>
+		      <Footer/>
 		    </div>
 		  </Router>
-		  <Footer/>
-	    </div>
+		</div>
 	       </MuiThemeProvider>
 	    </div>
     );
