@@ -43,7 +43,7 @@ class CurrencyDetail extends Component {
       return (
     <TableRow key={this.props.balance.id + "-child"}>
       <TableRowColumn colSpan={3}>
-        <Table>
+        <Table selectable={false}>
             <TableHeader
                 displaySelectAll={false}
                 adjustForCheckbox={false}

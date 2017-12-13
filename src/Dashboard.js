@@ -41,7 +41,7 @@ class Dashboard extends Component {
     return (
 	    <div>
 	      <Paper zDepth={2} className="statistics container">
-		<h2>Portfolio</h2>
+		<h2>Dashboard</h2>
 	      </Paper>
 	      <Statistics balances={this.state.balances}
 			  transactions={this.state.transactions}

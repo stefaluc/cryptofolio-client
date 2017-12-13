@@ -44,7 +44,7 @@ class CurrencyList extends Component {
     }
     if (balances.length > 0) {
       return (
-          <Table>
+          <Table selectable={false}>
               <TableHeader
                 displaySelectAll={false}
                 adjustForCheckbox={false}
