@@ -17,13 +17,13 @@ class CurrencyList extends Component {
     for (var i = 0; i < this.props.balances.length; i++) {
       var balance = this.props.balances[i];
       balances.push(
-	      <TableRow key={balance.currencyID}>
+	      <TableRow key={balance.id}>
 	        <TableRowColumn>{balance.currencyID}</TableRowColumn>
 	        <TableRowColumn>{balance.quantity}</TableRowColumn>
 	      </TableRow>
       );
       balances.push(
-	      <TableRow key={balance.currencyID + "-child"}>
+	      <TableRow key={balance.id + "-child"}>
 		<TableRowColumn colSpan={3}
 		    children={<CurrencyDetail balance={balance}
 					      transactions={this.props.transactions} />

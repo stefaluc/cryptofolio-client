@@ -114,11 +114,10 @@ class API {
 
   static insertTransaction(balanceID, quantity, price, date) {
     const payload = {
-      quantity,
-      price,
+      quantity: parseFloat(quantity),
+      price: parseFloat(price),
       date,
     }
-    console.log(JSON.stringify(payload));
     return new Promise((resolve, reject) => {
       axios.post(baseURL + 'auth/balance/' + balanceID + '?token=' + Auth.getToken(), JSON.stringify(payload))
         .then((response) => {
